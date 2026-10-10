@@ -10,6 +10,8 @@ internal sealed class InstallerForm : Form
     private readonly CheckBox _chrome = new() { Text = "Google Chrome", AutoSize = true };
     private readonly CheckBox _winRar = new() { Text = "WinRAR", AutoSize = true };
     private readonly CheckBox _office = new() { Text = "Office 2016", AutoSize = true };
+    private readonly Button _selectAll = new() { Text = "Seleccionar todos", AutoSize = true };
+    private readonly Button _clearAll = new() { Text = "Limpiar selección", AutoSize = true };
     private readonly Button _install = new() { Text = "Instalar seleccionados", AutoSize = true };
     private readonly TextBox _status = new()
     {
@@ -37,20 +39,30 @@ internal sealed class InstallerForm : Form
             WrapContents = false, Padding = new Padding(0, 8, 0, 8)
         };
         checks.Controls.AddRange([_acrobat, _openVpn, _chrome, _winRar, _office]);
+        var selectionButtons = new FlowLayoutPanel
+        {
+            Dock = DockStyle.Top, AutoSize = true, WrapContents = false,
+            FlowDirection = FlowDirection.LeftToRight, Padding = new Padding(0, 0, 0, 8)
+        };
+        selectionButtons.Controls.AddRange([_selectAll, _clearAll]);
+        _selectAll.Click += (_, _) => SetAllChecked(true);
+        _clearAll.Click += (_, _) => SetAllChecked(false);
         _install.Click += async (_, _) => await InstallSelectedAsync();
 
         var layout = new TableLayoutPanel
         {
-            Dock = DockStyle.Fill, Padding = new Padding(16), ColumnCount = 1, RowCount = 4
+            Dock = DockStyle.Fill, Padding = new Padding(16), ColumnCount = 1, RowCount = 5
         };
+        layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
         layout.Controls.Add(intro, 0, 0);
         layout.Controls.Add(checks, 0, 1);
-        layout.Controls.Add(_install, 0, 2);
-        layout.Controls.Add(_status, 0, 3);
+        layout.Controls.Add(selectionButtons, 0, 2);
+        layout.Controls.Add(_install, 0, 3);
+        layout.Controls.Add(_status, 0, 4);
         Controls.Add(layout);
         AppendStatus("Listo. Elegí uno o más programas.");
     }
@@ -183,5 +195,16 @@ internal sealed class InstallerForm : Form
         _chrome.Enabled = enabled;
         _winRar.Enabled = enabled;
         _office.Enabled = enabled;
+        _selectAll.Enabled = enabled;
+        _clearAll.Enabled = enabled;
+    }
+
+    private void SetAllChecked(bool isChecked)
+    {
+        _acrobat.Checked = isChecked;
+        _openVpn.Checked = isChecked;
+        _chrome.Checked = isChecked;
+        _winRar.Checked = isChecked;
+        _office.Checked = isChecked;
     }
 }
