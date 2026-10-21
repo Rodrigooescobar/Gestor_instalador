@@ -40,6 +40,7 @@ Crea un bat con el nombre del exe y se debe agregar /? o /h
 
 ![imagen del menu de comandos](/imagenes/Screenshot_1.png "")
 ![imagen del menu de comandos](/imagenes/Screenshot_2.png "")
+![alt text](image-1.png)
 
 ## Crear un bat con tus programas
 Se debe crear un bat y una carpeta que se llame programas donde van a estar los instaladores
