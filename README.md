@@ -35,8 +35,8 @@ Simplemente se debe marcar los checkbox de los programas a instalar
 ![alt text](image.png)
 
 
-## Agrega tu programa silencioso
-Crea un bat con el nombre del exe y se debe agregar /? o /h
+## Guia para agregar tus programa al bat
+Crea un bat en el cual debe contener con el nombre del exe y se debe agregar `/?` o `/h`
 
 ![imagen del menu de comandos](/imagenes/Screenshot_1.png "")
 ![imagen del menu de comandos](/imagenes/Screenshot_2.png "")
@@ -130,3 +130,4 @@ popd
 endlocal
 exit /b
 ```
+![alt text](image-2.png) ![alt text](image-3.png)
