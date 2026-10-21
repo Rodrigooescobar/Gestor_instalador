@@ -30,15 +30,102 @@ Las instalaciones se procesan en orden, aunque una falle. Al terminar aparece un
 
 ## Como usar
 
-Abrí `InstaladorProgramas.csproj` con Visual Studio 2022 (carga de trabajo .NET para escritorio) o compilá con el SDK .NET 8 instalado en Windows. El proyecto está configurado para producir una aplicación autocontenida x64:
+Simplemente se debe marcar los checkbox de los programas a instalar
 
-```powershell
-dotnet build -c Release
-```
+![alt text](image.png)
 
-El ejecutable compilado se genera en `bin\Release\net8.0-windows\win-x64\`. El `config.xml` se copia automáticamente a `bin\Release\net8.0-windows\win-x64\programas\`. Copiá los instaladores en las ubicaciones correspondientes dentro de esa carpeta `programas` antes de usarlo. El proyecto no distribuye los instaladores comerciales.
 
 ## Agrega tu programa silencioso
 Crea un bat con el nombre del exe y se debe agregar /? o /h
 
 ![imagen del menu de comandos](/imagenes/Screenshot_1.png "")
+![imagen del menu de comandos](/imagenes/Screenshot_2.png "")
+
+## Crear un bat con tus programas
+Se debe crear un bat y una carpeta que se llame programas donde van a estar los instaladores
+```
+@echo off
+setlocal EnableExtensions
+
+title Instalacion silenciosa de programas
+
+:: ==========================================
+:: SOLICITAR PERMISOS DE ADMINISTRADOR
+:: ==========================================
+fltmc >nul 2>&1
+if errorlevel 1 (
+    echo Solicitando permisos de administrador...
+    powershell.exe -NoProfile -Command "Start-Process -FilePath '%~f0' -Verb RunAs"
+    exit /b
+)
+
+:: Trabajar desde la carpeta donde esta el BAT
+pushd "%~dp0"
+
+set "P=%~dp0p"
+set "FALLOS=0"
+
+echo.
+echo ==========================================
+echo    INSTALACION SILENCIOSA DE PROGRAMAS
+echo ==========================================
+echo.
+
+:: ==========================================
+:: GOOGLE CHROME
+:: ==========================================
+echo [1/2] Instalando Google Chrome...
+
+if exist "%programas%\ChromeSetup.exe" (
+    start /wait "" "%P%\ChromeSetup.exe" /silent /install
+    if errorlevel 1 (
+        echo ERROR: Chrome. Codigo: %errorlevel%
+        set /a FALLOS+=1
+    ) else (
+        echo Chrome: proceso finalizado.
+    )
+) else (
+    echo ERROR: No se encontro el instalador de Chrome.
+    set /a FALLOS+=1
+)
+
+echo.
+
+:: ==========================================
+:: WINRAR
+:: ==========================================
+echo [2/2] Instalando WinRAR...
+
+if exist "%programas%\WinRAR.exe" (
+    start /wait "" "%P%\WinRAR.exe" /S
+    if errorlevel 1 (
+        echo ERROR: WinRAR. Codigo: %errorlevel%
+        set /a FALLOS+=1
+    ) else (
+        echo WinRAR: proceso finalizado.
+    )
+) else (
+    echo ERROR: No se encontro el instalador de WinRAR.
+    set /a FALLOS+=1
+)
+
+echo.
+echo ==========================================
+echo          INSTALACION FINALIZADA
+echo ==========================================
+echo.
+
+if "%FALLOS%"=="0" (
+    echo Todos los procesos finalizaron sin errores reportados.
+) else (
+    echo Se detectaron %FALLOS% errores.
+)
+
+echo.
+echo Presione una tecla para salir...
+pause >nul
+
+popd
+endlocal
+exit /b
+```
