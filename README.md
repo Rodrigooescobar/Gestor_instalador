@@ -1,7 +1,6 @@
 # Instalador de programas silencioso
 
-Proyecto echeo con WinForms .NET 8. Al iniciar el programa se solicita elevación, del cual solo se pedira 1 vez para multiples programas, por lo que Windows muestra un único UAC. Los procesos de instalación se ejecutan desde esa aplicación elevada.
-
+Instalación automatizada de múltiples programas sin intervención del usuario. Al iniciar la aplicación, Windows solicita permisos de administrador mediante una única confirmación UAC. Una vez concedidos, los instaladores se ejecutan automáticamente con los permisos correspondientes.
 ## Archivos de instalación
 
 Los instaladores se deben ubicar en la siguiente ruta, manteniendo sus nombres:
@@ -34,16 +33,9 @@ Simplemente se debe marcar los checkbox de los programas a instalar
 
 ![alt text](image.png)
 
-
-## Guia para agregar tus programa al bat
-Crea un bat en el cual debe contener con el nombre del exe y se debe agregar `/?` o `/h`
-
-![imagen del menu de comandos](/imagenes/Screenshot_1.png "")
-![imagen del menu de comandos](/imagenes/Screenshot_2.png "")
-![alt text](image-1.png)
-
-## Crear un bat con tus programas
-Se debe crear un bat y una carpeta que se llame programas donde van a estar los instaladores
+## Crear tu propio bat con los programas que quieras
+Se debe crear un bat con cualquier nombre y una carpeta que se llame programas donde se van a estar los instaladores (esto es para que sea mas ordenado).
+Ejemplo de coomo podria ser el bat
 ```
 @echo off
 setlocal EnableExtensions
@@ -131,3 +123,12 @@ endlocal
 exit /b
 ```
 ![alt text](image-2.png) ![alt text](image-3.png)
+
+## Guia para agregar tus programa al bat
+Crea un bat en el cual debe contener con el nombre del exe y se debe agregar `/?` o `/h` para saber cual es comando que nos permite instalar la app en modo silencioso
+
+![imagen del menu de comandos](/imagenes/Screenshot_1.png "")
+![imagen del menu de comandos](/imagenes/Screenshot_2.png "")
+![alt text](image-1.png)
+
+En el ejemplo vemos que el comando silencoso es /sAll, por lo cual deberiamos agregar a nuestro bat de instaladores el nombre del exe + /sAll como se muestra en la imagen
