@@ -31,7 +31,7 @@ Las instalaciones se procesan en orden, aunque una falle. Al terminar aparece un
 
 Simplemente se debe marcar los checkbox de los programas a instalar
 
-![alt text](image.png)
+![alt text](imagenes/image-4.png "")
 
 ## Crear tu propio bat con los programas que quieras
 Se debe crear un bat con cualquier nombre y una carpeta que se llame programas donde se van a estar los instaladores (esto es para que sea mas ordenado).
@@ -122,13 +122,13 @@ popd
 endlocal
 exit /b
 ```
-![alt text](image-2.png) ![alt text](image-3.png)
+![alt text](imagenes/image-2.png "") ![alt text](imagenes/image-3.png "")
 
 ## Guia para agregar tus programa al bat
 Crea un bat en el cual debe contener con el nombre del exe y se debe agregar `/?` o `/h` para saber cual es comando que nos permite instalar la app en modo silencioso
 
-![imagen del menu de comandos](/imagenes/Screenshot_1.png "")
-![imagen del menu de comandos](/imagenes/Screenshot_2.png "")
-![alt text](image-1.png)
+![imagen del menu de comandos](imagenes/Screenshot_1.png "")
+![imagen del menu de comandos](imagenes/Screenshot_2.png "")
+![alt text](imagenes/image-1.png "")
 
 En el ejemplo vemos que el comando silencoso es /sAll, por lo cual deberiamos agregar a nuestro bat de instaladores el nombre del exe + /sAll como se muestra en la imagen
