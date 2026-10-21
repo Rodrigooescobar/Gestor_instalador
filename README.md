@@ -41,4 +41,4 @@ El ejecutable compilado se genera en `bin\Release\net8.0-windows\win-x64\`. El `
 ## Agrega tu programa silencioso
 Crea un bat con el nombre del exe y se debe agregar /? o /h
 
-!(/imagenes/Screenshot_1.png)
+![imagen del menu de comandos](/imagenes/Screenshot_1.png "")
