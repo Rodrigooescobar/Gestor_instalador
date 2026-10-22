@@ -55,7 +55,8 @@ if errorlevel 1 (
 :: Trabajar desde la carpeta donde esta el BAT
 pushd "%~dp0"
 
-set "P=%~dp0p"
+:: Carpeta que contiene los instaladores
+set "PROGRAMAS=%~dp0programas"
 set "FALLOS=0"
 
 echo.
@@ -69,8 +70,8 @@ echo.
 :: ==========================================
 echo [1/2] Instalando Google Chrome...
 
-if exist "%programas%\ChromeSetup.exe" (
-    start /wait "" "%P%\ChromeSetup.exe" /silent /install
+if exist "%PROGRAMAS%\ChromeSetup.exe" (
+    start /wait "" "%PROGRAMAS%\ChromeSetup.exe" /silent /install
     if errorlevel 1 (
         echo ERROR: Chrome. Codigo: %errorlevel%
         set /a FALLOS+=1
@@ -89,8 +90,8 @@ echo.
 :: ==========================================
 echo [2/2] Instalando WinRAR...
 
-if exist "%programas%\WinRAR.exe" (
-    start /wait "" "%P%\WinRAR.exe" /S
+if exist "%PROGRAMAS%\WinRAR.exe" (
+    start /wait "" "%PROGRAMAS%\WinRAR.exe" /S
     if errorlevel 1 (
         echo ERROR: WinRAR. Codigo: %errorlevel%
         set /a FALLOS+=1
